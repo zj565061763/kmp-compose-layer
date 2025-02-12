@@ -57,7 +57,7 @@ fun Layer(
   onDetachRequest: (LayerDetach) -> Unit,
   debug: Boolean = false,
   detachOnBackPress: Boolean? = true,
-  detachOnTouchBackground: Boolean? = false,
+  detachOnTouchBackground: Boolean? = true,
   backgroundColor: Color = Color.Black.copy(alpha = 0.3f),
   alignment: Alignment = Alignment.Center,
   transition: LayerTransition? = null,
@@ -85,7 +85,7 @@ fun Layer(
  * @param onDetachRequest [LayerDetach]触发的移除回调
  * @param debug 是否调试模式，tag:FLayer
  * @param detachOnBackPress 按返回键是否请求移除Layer，true-请求移除；false-请求不移除；null-不处理返回键逻辑，默认true
- * @param detachOnTouchBackground 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，事件会透过背景，默认false
+ * @param detachOnTouchBackground 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，事件会透过背景，默认true
  * @param backgroundColor 背景颜色
  * @param alignment 对齐容器位置
  * @param transition 动画（非响应式）
@@ -98,7 +98,7 @@ fun layer(
   onDetachRequest: (LayerDetach) -> Unit,
   debug: Boolean = false,
   detachOnBackPress: Boolean? = true,
-  detachOnTouchBackground: Boolean? = false,
+  detachOnTouchBackground: Boolean? = true,
   backgroundColor: Color = Color.Black.copy(alpha = 0.3f),
   alignment: Alignment = Alignment.Center,
   transition: LayerTransition? = null,
@@ -146,7 +146,7 @@ fun TargetLayer(
   onDetachRequest: (LayerDetach) -> Unit,
   debug: Boolean = false,
   detachOnBackPress: Boolean? = true,
-  detachOnTouchBackground: Boolean? = false,
+  detachOnTouchBackground: Boolean? = true,
   backgroundColor: Color = Color.Black.copy(alpha = 0.3f),
   alignment: TargetAlignment = TargetAlignment.Center,
   alignmentOffsetX: TargetAlignmentOffset? = null,
@@ -184,7 +184,7 @@ fun TargetLayer(
  * @param onDetachRequest [LayerDetach]触发的移除回调
  * @param debug 是否调试模式，tag:FLayer
  * @param detachOnBackPress 按返回键是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理返回键逻辑，默认值true
- * @param detachOnTouchBackground 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，事件会透过背景，默认值false
+ * @param detachOnTouchBackground 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，事件会透过背景，默认值true
  * @param backgroundColor 背景颜色
  * @param alignment 对齐目标位置
  * @param alignmentOffsetX 对齐目标X方向偏移量
@@ -203,7 +203,7 @@ fun targetLayer(
   onDetachRequest: (LayerDetach) -> Unit,
   debug: Boolean = false,
   detachOnBackPress: Boolean? = true,
-  detachOnTouchBackground: Boolean? = false,
+  detachOnTouchBackground: Boolean? = true,
   backgroundColor: Color = Color.Black.copy(alpha = 0.3f),
   alignment: TargetAlignment = TargetAlignment.Center,
   alignmentOffsetX: TargetAlignmentOffset? = null,

@@ -63,12 +63,12 @@ internal interface Layer : LayerState {
   val zIndexState: Float
 
   /**
-   * 按返回键是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理返回键逻辑，默认true
+   * 按返回键是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理返回键逻辑
    */
   fun setDetachOnBackPress(value: Boolean?)
 
   /**
-   * 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，事件会透过背景，默认false
+   * 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，事件会透过背景
    */
   fun setDetachOnTouchBackground(value: Boolean?)
 
