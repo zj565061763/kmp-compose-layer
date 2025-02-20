@@ -1,6 +1,7 @@
 package com.sd.lib.kmp.compose_layer
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -21,14 +22,12 @@ import androidx.compose.ui.zIndex
 @Composable
 fun LayerContainer(
   modifier: Modifier = Modifier,
-  content: @Composable () -> Unit,
+  content: @Composable BoxScope.() -> Unit,
 ) {
   val container = remember { newLayerContainer() }
 
   DisposableEffect(container) {
-    onDispose {
-      container.destroy()
-    }
+    onDispose { container.destroy() }
   }
 
   CompositionLocalProvider(
@@ -36,9 +35,8 @@ fun LayerContainer(
     LocalContainerForLayer provides container,
   ) {
     Box(
-      modifier = modifier.onGloballyPositioned {
-        container.updateContainerLayout(it)
-      },
+      modifier = modifier.onGloballyPositioned { container.updateContainerLayout(it) },
+      contentAlignment = Alignment.Center,
     ) {
       content()
       container.Layers()
