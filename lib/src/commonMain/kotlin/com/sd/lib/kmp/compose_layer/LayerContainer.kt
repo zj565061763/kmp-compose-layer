@@ -1,6 +1,5 @@
 package com.sd.lib.kmp.compose_layer
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateListOf
@@ -174,12 +173,8 @@ private class LayerContainerImpl : ComposableLayerContainer(), LayerContainer {
 
   @Composable
   override fun Layers() {
-    Box {
-      _attachedLayers.forEach { layer ->
-        key(layer) {
-          layer.Content()
-        }
-      }
+    _attachedLayers.forEach { layer ->
+      key(layer) { layer.Content() }
     }
   }
 }

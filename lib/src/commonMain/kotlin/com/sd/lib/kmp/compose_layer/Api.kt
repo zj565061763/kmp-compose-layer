@@ -22,6 +22,7 @@ import androidx.compose.ui.zIndex
 @Composable
 fun LayerContainer(
   modifier: Modifier = Modifier,
+  layersZIndex: Float = 0f,
   content: @Composable BoxScope.() -> Unit,
 ) {
   val container = remember { newLayerContainer() }
@@ -39,7 +40,14 @@ fun LayerContainer(
       contentAlignment = Alignment.Center,
     ) {
       content()
-      container.Layers()
+      Box(
+        modifier = Modifier
+          .matchParentSize()
+          .zIndex(layersZIndex),
+        contentAlignment = Alignment.Center,
+      ) {
+        container.Layers()
+      }
     }
   }
 }
