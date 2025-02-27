@@ -78,7 +78,6 @@ private fun Content(
     attach = attach,
     onDetachRequest = { attach = false },
     alignment = TargetAlignment.TopCenter,
-    detachOnTouchBackground = true,
     alignmentOffsetX = TargetAlignmentOffset.PX(100),
     alignmentOffsetY = TargetAlignmentOffset.Target(0.5f),
     clipBackgroundDirection = Directions.Bottom + Directions.Start,

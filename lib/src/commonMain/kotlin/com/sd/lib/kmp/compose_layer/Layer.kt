@@ -51,6 +51,9 @@ enum class LayerDetach {
 
   /** 触摸背景区域 */
   OnTouchBackground,
+
+  /** 触摸非内容区域 */
+  OnTouchOutside,
 }
 
 interface LayerContentScope
@@ -68,7 +71,7 @@ internal interface Layer : LayerState {
   fun setDetachOnBackPress(value: Boolean?)
 
   /**
-   * 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，事件会透过背景
+   * 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理
    */
   fun setDetachOnTouchBackground(value: Boolean?)
 
@@ -451,7 +454,7 @@ internal abstract class LayerImpl : Layer {
     }
   }
 
-  private fun requestDetach(layerDetach: LayerDetach) {
+  protected fun requestDetach(layerDetach: LayerDetach) {
     logMsg { "requestDetach:$layerDetach" }
     _detachRequestCallback?.invoke(layerDetach)
   }

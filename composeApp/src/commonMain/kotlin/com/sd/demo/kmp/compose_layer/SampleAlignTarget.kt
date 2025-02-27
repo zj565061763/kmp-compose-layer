@@ -61,6 +61,7 @@ private fun Content() {
     backgroundColor = Color.Transparent,
     detachOnBackPress = null,
     detachOnTouchBackground = null,
+    detachOnTouchOutside = null,
     debug = true,
   ) {
     ColorBox()

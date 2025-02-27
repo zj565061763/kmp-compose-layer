@@ -152,7 +152,8 @@ fun TargetLayer(
   onDetachRequest: (LayerDetach) -> Unit,
   debug: Boolean = false,
   detachOnBackPress: Boolean? = true,
-  detachOnTouchBackground: Boolean? = true,
+  detachOnTouchBackground: Boolean? = null,
+  detachOnTouchOutside: Boolean? = true,
   backgroundColor: Color = Color.Black.copy(alpha = 0.3f),
   alignment: TargetAlignment = TargetAlignment.Center,
   alignmentOffsetX: TargetAlignmentOffset? = null,
@@ -170,6 +171,7 @@ fun TargetLayer(
     debug = debug,
     detachOnBackPress = detachOnBackPress,
     detachOnTouchBackground = detachOnTouchBackground,
+    detachOnTouchOutside = detachOnTouchOutside,
     backgroundColor = backgroundColor,
     alignment = alignment,
     alignmentOffsetX = alignmentOffsetX,
@@ -190,7 +192,8 @@ fun TargetLayer(
  * @param onDetachRequest [LayerDetach]触发的移除回调
  * @param debug 是否调试模式，tag:FLayer
  * @param detachOnBackPress 按返回键是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理返回键逻辑，默认值true
- * @param detachOnTouchBackground 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，事件会透过背景，默认值true
+ * @param detachOnTouchBackground 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，默认值null
+ * @param detachOnTouchOutside 触摸非内容区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，默认true
  * @param backgroundColor 背景颜色
  * @param alignment 对齐目标位置
  * @param alignmentOffsetX 对齐目标X方向偏移量
@@ -209,7 +212,8 @@ fun targetLayer(
   onDetachRequest: (LayerDetach) -> Unit,
   debug: Boolean = false,
   detachOnBackPress: Boolean? = true,
-  detachOnTouchBackground: Boolean? = true,
+  detachOnTouchBackground: Boolean? = null,
+  detachOnTouchOutside: Boolean? = true,
   backgroundColor: Color = Color.Black.copy(alpha = 0.3f),
   alignment: TargetAlignment = TargetAlignment.Center,
   alignmentOffsetX: TargetAlignmentOffset? = null,
@@ -226,6 +230,7 @@ fun targetLayer(
     this.setDetachRequestCallback(onDetachRequest)
     this.setDetachOnBackPress(detachOnBackPress)
     this.setDetachOnTouchBackground(detachOnTouchBackground)
+    this.setDetachOnTouchOutside(detachOnTouchOutside)
     this.setBackgroundColor(backgroundColor)
     this.setTarget(target)
     this.setAlignment(alignment)
