@@ -32,11 +32,11 @@ interface LayerState {
 }
 
 enum class LayerLifecycleState {
-  /** 对象刚创建出来 */
-  Created,
+  /** 初始状态 */
+  Initial,
 
-  /** 已经初始化完毕，可以被添加到容器 */
-  Initialized,
+  /** 准备完毕，可以被添加到容器 */
+  Ready,
 
   /** 即将被移除 */
   Detaching,
@@ -115,7 +115,7 @@ internal abstract class LayerImpl : Layer {
   internal var layerContainer: ContainerForLayer? = null
     private set
 
-  private var _lifecycleState by mutableStateOf(LayerLifecycleState.Created)
+  private var _lifecycleState by mutableStateOf(LayerLifecycleState.Initial)
   private var _isVisibleState by mutableStateOf(false)
 
   private val _layerScope = LayerScopeImpl()
@@ -163,7 +163,7 @@ internal abstract class LayerImpl : Layer {
 
   final override fun attach() {
     when (val state = _lifecycleState) {
-      LayerLifecycleState.Initialized,
+      LayerLifecycleState.Ready,
       LayerLifecycleState.Detaching,
         -> {
         val container = checkNotNull(layerContainer) { "LayerContainer is null when attach" }
@@ -232,7 +232,7 @@ internal abstract class LayerImpl : Layer {
     logMsg { "onInit $container" }
     check(layerContainer == null)
     layerContainer = container
-    setLifecycleState(LayerLifecycleState.Initialized)
+    setLifecycleState(LayerLifecycleState.Ready)
   }
 
   /**
@@ -243,7 +243,7 @@ internal abstract class LayerImpl : Layer {
     check(layerContainer === container)
     detach()
     layerContainer = null
-    setLifecycleState(LayerLifecycleState.Created)
+    setLifecycleState(LayerLifecycleState.Initial)
   }
 
   private fun setLifecycleState(state: LayerLifecycleState) {
@@ -312,7 +312,7 @@ internal abstract class LayerImpl : Layer {
         val container = checkNotNull(layerContainer)
         if (container.detachLayer(this@LayerImpl)) {
           logMsg { "detachLayer" }
-          setLifecycleState(LayerLifecycleState.Initialized)
+          setLifecycleState(LayerLifecycleState.Ready)
           onDetached(container)
         }
       }
