@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.zIndex
 
@@ -211,14 +210,9 @@ internal abstract class LayerImpl : Layer {
   internal fun Init(
     content: @Composable LayerContentScope.() -> Unit,
   ) {
-    val container = LocalContainerForLayer.current
-    if (container == null) {
-      if (LocalInspectionMode.current) return
-      else error("Not in LayerContainer scope.")
-    } else {
-      container.initLayer(this)
-      _contentState.value = content
-    }
+    val container = LocalContainerForLayer.current ?: error("Not in LayerContainer scope.")
+    container.initLayer(this)
+    _contentState.value = content
   }
 
   internal fun release() {

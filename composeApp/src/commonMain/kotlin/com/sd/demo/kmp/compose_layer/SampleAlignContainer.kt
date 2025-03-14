@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import com.sd.lib.kmp.compose_layer.LayerContainer
 import com.sd.lib.kmp.compose_layer.LayerState
 import com.sd.lib.kmp.compose_layer.layer
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SampleAlignContainer(
@@ -115,5 +116,13 @@ private fun ButtonsBox(
     ) {
       Text(text = "CenterEnd")
     }
+  }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+  LayerContainer {
+    Content()
   }
 }
