@@ -166,8 +166,8 @@ internal abstract class LayerImpl : Layer {
       LayerLifecycleState.Ready,
       LayerLifecycleState.Detaching,
         -> {
-        val container = checkNotNull(layerContainer) { "LayerContainer is null when attach" }
         logMsg { "attach" }
+        val container = checkNotNull(layerContainer) { "LayerContainer is null when attach" }
         container.attachLayer(this)
         setLifecycleState(LayerLifecycleState.Attached)
         container.registerContainerLayoutCallback(_containerLayoutCallback)
@@ -181,8 +181,8 @@ internal abstract class LayerImpl : Layer {
 
   final override fun detach() {
     if (_lifecycleState == LayerLifecycleState.Attached) {
-      val container = checkNotNull(layerContainer) { "LayerContainer is null when detach" }
       logMsg { "detach" }
+      val container = checkNotNull(layerContainer) { "LayerContainer is null when detach" }
       setLifecycleState(LayerLifecycleState.Detaching)
       setContentVisible(false)
       container.unregisterContainerLayoutCallback(_containerLayoutCallback)
