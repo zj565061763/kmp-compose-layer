@@ -464,6 +464,6 @@ internal abstract class LayerImpl : Layer {
 
 internal fun Layer.logMsg(block: () -> String) {
   if (debug) {
-    pLogMsg(block)
+    println("FLayer ${block()}")
   }
 }

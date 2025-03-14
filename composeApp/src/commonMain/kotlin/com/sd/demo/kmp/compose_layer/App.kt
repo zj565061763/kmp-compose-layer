@@ -50,4 +50,6 @@ fun App() {
   }
 }
 
-expect fun logMsg(tag: String = "kmp-compose-layer", block: () -> String)
+fun logMsg(tag: String = "kmp-compose-layer", block: () -> String) {
+  println("$tag ${block()}")
+}

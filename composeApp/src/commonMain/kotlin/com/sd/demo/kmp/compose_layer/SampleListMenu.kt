@@ -145,7 +145,7 @@ private fun Menus(
       .width(200.dp)
       .background(MaterialTheme.colorScheme.surfaceContainer)
   ) {
-    remember { listOf("标为未读", "置顶该聊天", "删除该聊天") }
+    remember { listOf("Menu1", "Menu2", "Menu3") }
       .forEach { item ->
         Box(
           modifier = Modifier

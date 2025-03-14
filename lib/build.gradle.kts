@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -27,6 +28,14 @@ kotlin {
       baseName = "com_sd_lib_kmp_compose_layer"
       isStatic = true
     }
+  }
+
+  jvm("desktop")
+
+  @OptIn(ExperimentalWasmDsl::class)
+  wasmJs {
+    moduleName = "com_sd_lib_kmp_compose_layer"
+    browser()
   }
 
   sourceSets {
