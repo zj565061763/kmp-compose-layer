@@ -42,6 +42,7 @@ internal class NormalLayerImpl : LayerImpl(), NormalLayer {
         .fillMaxSize()
         .zIndex(zIndexState)
     ) {
+      HandleOnTouchOutsideBox()
       BackgroundBox()
       ContentBox(Modifier.align(_alignment))
     }

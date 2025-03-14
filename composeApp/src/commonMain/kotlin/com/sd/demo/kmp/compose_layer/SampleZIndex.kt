@@ -75,7 +75,7 @@ private fun Layer1(
   Layer(
     attach = attach,
     onDetachRequest = onDetachRequest,
-    detachOnTouchBackground = true,
+    detachOnTouchOutside = true,
     zIndex = 99f,
   ) {
     ColorBox(text = "Layer1", color = Color.Red)
@@ -90,7 +90,7 @@ private fun Layer2(
   Layer(
     attach = attach,
     onDetachRequest = onDetachRequest,
-    detachOnTouchBackground = true,
+    detachOnTouchOutside = true,
   ) {
     ColorBox(text = "I am Layer2", color = Color.Blue)
   }
