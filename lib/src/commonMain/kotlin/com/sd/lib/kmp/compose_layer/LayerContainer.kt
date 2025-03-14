@@ -36,7 +36,7 @@ internal interface ContainerForLayer {
 internal typealias LayoutCoordinatesCallback = (LayoutCoordinates?) -> Unit
 
 private abstract class ComposableLayerContainer : ContainerForComposable {
-  protected var destroyed = false
+  var destroyed = false
     private set
 
   /** 容器布局信息 */
@@ -72,11 +72,11 @@ private abstract class ComposableLayerContainer : ContainerForComposable {
     _targetsLayout.clear()
   }
 
-  protected fun getContainerLayout(): LayoutCoordinates? = _containerLayout
-  protected fun getTargetLayout(tag: String): LayoutCoordinates? = _targetsLayout[tag]
+  fun getContainerLayout(): LayoutCoordinates? = _containerLayout
+  fun getTargetLayout(tag: String): LayoutCoordinates? = _targetsLayout[tag]
 
-  protected abstract fun onUpdateContainerLayout(layoutCoordinates: LayoutCoordinates)
-  protected abstract fun onUpdateTargetLayout(tag: String, layoutCoordinates: LayoutCoordinates?)
+  abstract fun onUpdateContainerLayout(layoutCoordinates: LayoutCoordinates)
+  abstract fun onUpdateTargetLayout(tag: String, layoutCoordinates: LayoutCoordinates?)
 }
 
 private class LayerContainerImpl : ComposableLayerContainer(), LayerContainer {
