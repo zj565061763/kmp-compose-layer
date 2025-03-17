@@ -9,5 +9,5 @@ Compose Multiplatform layer library.
 # Gradle
 
 ```kotlin
-implementation("io.github.zj565061763.kmp:compose-layer:1.1.0")
+implementation("io.github.zj565061763.kmp:compose-layer:1.1.1")
 ```
