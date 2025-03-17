@@ -17,9 +17,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.sd.lib.kmp.compose_layer.LayerContainer
 import com.sd.lib.kmp.compose_layer.LayerState
 import com.sd.lib.kmp.compose_layer.layer
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SampleAlignContainer(
@@ -45,7 +47,6 @@ private fun Content() {
     attach = attach,
     onDetachRequest = { attach = false },
     alignment = alignment,
-    detachOnTouchBackground = true,
     debug = true,
   ) {
     Box(modifier = Modifier.safeDrawingPadding()) {
@@ -69,7 +70,10 @@ private fun Content() {
       enter = scaleIn(),
       exit = scaleOut(),
     ) {
-      Text("Sync visible state")
+      Text(
+        text = "Sync visible state",
+        color = Color.Red,
+      )
     }
   }
 
@@ -115,5 +119,13 @@ private fun ButtonsBox(
     ) {
       Text(text = "CenterEnd")
     }
+  }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+  LayerContainer {
+    Content()
   }
 }

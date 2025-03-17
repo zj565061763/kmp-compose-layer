@@ -60,7 +60,6 @@ private fun Content() {
     alignment = alignment ?: TargetAlignment.Center,
     backgroundColor = Color.Transparent,
     detachOnBackPress = null,
-    detachOnTouchBackground = null,
     detachOnTouchOutside = null,
     debug = true,
   ) {

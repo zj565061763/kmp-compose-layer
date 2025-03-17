@@ -63,7 +63,7 @@ fun Layer(
   onDetachRequest: (LayerDetach) -> Unit,
   debug: Boolean = false,
   detachOnBackPress: Boolean? = true,
-  detachOnTouchBackground: Boolean? = true,
+  detachOnTouchOutside: Boolean? = true,
   backgroundColor: Color = Color.Black.copy(alpha = 0.3f),
   alignment: Alignment = Alignment.Center,
   transition: LayerTransition? = null,
@@ -75,7 +75,7 @@ fun Layer(
     onDetachRequest = onDetachRequest,
     debug = debug,
     detachOnBackPress = detachOnBackPress,
-    detachOnTouchBackground = detachOnTouchBackground,
+    detachOnTouchOutside = detachOnTouchOutside,
     backgroundColor = backgroundColor,
     alignment = alignment,
     transition = transition,
@@ -91,7 +91,7 @@ fun Layer(
  * @param onDetachRequest [LayerDetach]触发的移除回调
  * @param debug 是否调试模式，tag:FLayer
  * @param detachOnBackPress 按返回键是否请求移除Layer，true-请求移除；false-请求不移除；null-不处理返回键逻辑，默认true
- * @param detachOnTouchBackground 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，事件会透过背景，默认true
+ * @param detachOnTouchOutside 触摸非内容区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，默认true
  * @param backgroundColor 背景颜色
  * @param alignment 对齐容器位置
  * @param transition 动画（非响应式）
@@ -104,7 +104,7 @@ fun layer(
   onDetachRequest: (LayerDetach) -> Unit,
   debug: Boolean = false,
   detachOnBackPress: Boolean? = true,
-  detachOnTouchBackground: Boolean? = true,
+  detachOnTouchOutside: Boolean? = true,
   backgroundColor: Color = Color.Black.copy(alpha = 0.3f),
   alignment: Alignment = Alignment.Center,
   transition: LayerTransition? = null,
@@ -116,7 +116,7 @@ fun layer(
     this.Init(content)
     this.setDetachRequestCallback(onDetachRequest)
     this.setDetachOnBackPress(detachOnBackPress)
-    this.setDetachOnTouchBackground(detachOnTouchBackground)
+    this.setDetachOnTouchOutside(detachOnTouchOutside)
     this.setBackgroundColor(backgroundColor)
     this.setAlignment(alignment)
     this.setTransition(transition)
@@ -152,7 +152,6 @@ fun TargetLayer(
   onDetachRequest: (LayerDetach) -> Unit,
   debug: Boolean = false,
   detachOnBackPress: Boolean? = true,
-  detachOnTouchBackground: Boolean? = null,
   detachOnTouchOutside: Boolean? = true,
   backgroundColor: Color = Color.Black.copy(alpha = 0.3f),
   alignment: TargetAlignment = TargetAlignment.Center,
@@ -170,7 +169,6 @@ fun TargetLayer(
     onDetachRequest = onDetachRequest,
     debug = debug,
     detachOnBackPress = detachOnBackPress,
-    detachOnTouchBackground = detachOnTouchBackground,
     detachOnTouchOutside = detachOnTouchOutside,
     backgroundColor = backgroundColor,
     alignment = alignment,
@@ -192,7 +190,6 @@ fun TargetLayer(
  * @param onDetachRequest [LayerDetach]触发的移除回调
  * @param debug 是否调试模式，tag:FLayer
  * @param detachOnBackPress 按返回键是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理返回键逻辑，默认值true
- * @param detachOnTouchBackground 触摸背景区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，默认值null
  * @param detachOnTouchOutside 触摸非内容区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理，默认true
  * @param backgroundColor 背景颜色
  * @param alignment 对齐目标位置
@@ -212,7 +209,6 @@ fun targetLayer(
   onDetachRequest: (LayerDetach) -> Unit,
   debug: Boolean = false,
   detachOnBackPress: Boolean? = true,
-  detachOnTouchBackground: Boolean? = null,
   detachOnTouchOutside: Boolean? = true,
   backgroundColor: Color = Color.Black.copy(alpha = 0.3f),
   alignment: TargetAlignment = TargetAlignment.Center,
@@ -229,7 +225,6 @@ fun targetLayer(
     this.Init(content)
     this.setDetachRequestCallback(onDetachRequest)
     this.setDetachOnBackPress(detachOnBackPress)
-    this.setDetachOnTouchBackground(detachOnTouchBackground)
     this.setDetachOnTouchOutside(detachOnTouchOutside)
     this.setBackgroundColor(backgroundColor)
     this.setTarget(target)

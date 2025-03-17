@@ -1,17 +1,13 @@
 package com.sd.lib.kmp.compose_layer
 
-import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.MeasureResult
 import androidx.compose.ui.layout.Placeable
@@ -25,7 +21,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.round
-import androidx.compose.ui.zIndex
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
@@ -74,11 +69,6 @@ internal interface TargetLayer : Layer, TargetLayerState {
    * 裁切背景的方向[Directions]（非响应式）
    */
   fun setClipBackgroundDirection(direction: Directions?)
-
-  /**
-   * 触摸非内容区域是否请求移除Layer，true-请求移除；false-不请求移除；null-不处理
-   */
-  fun setDetachOnTouchOutside(value: Boolean?)
 }
 
 internal fun TargetLayer.toTargetLayerState(): TargetLayerState = InternalTargetLayerState(this)
@@ -129,8 +119,6 @@ internal class TargetLayerImpl : LayerImpl(), TargetLayer {
   /** 裁切背景 */
   private var _clipBackgroundDirection: Directions? = null
 
-  private var _detachOnTouchOutsideState by mutableStateOf<Boolean?>(null)
-
   override fun setTarget(target: LayerTarget?) {
     if (_target == target) return
     logMsg { "setTarget:$target" }
@@ -164,6 +152,13 @@ internal class TargetLayerImpl : LayerImpl(), TargetLayer {
     updateTargetLayout()
   }
 
+  /** 监听容器布局信息 */
+  private val _containerLayoutCallback: LayoutCoordinatesCallback = { layoutCoordinates ->
+    _uiState.update {
+      it.copy(containerLayout = layoutCoordinates.toLayoutInfo())
+    }
+  }
+
   override fun setAlignment(alignment: TargetAlignment) {
     if (_uiState.value.alignment == alignment) return
     _uiState.update {
@@ -193,27 +188,18 @@ internal class TargetLayerImpl : LayerImpl(), TargetLayer {
     _clipBackgroundDirection = direction
   }
 
-  override fun setDetachOnTouchOutside(value: Boolean?) {
-    _detachOnTouchOutsideState = value
-  }
-
   override fun onAttach(container: ContainerForLayer) {
+    container.registerContainerLayoutCallback(_containerLayoutCallback)
     registerTarget(_target)
   }
 
   override fun onDetach(container: ContainerForLayer) {
+    container.unregisterContainerLayoutCallback(_containerLayoutCallback)
     unregisterTarget(_target)
   }
 
   override fun onDetached(container: ContainerForLayer) {
     _currentSmartAlignment = null
-  }
-
-  override fun onContainerLayoutCallback(layoutCoordinates: LayoutCoordinates?) {
-    super.onContainerLayoutCallback(layoutCoordinates)
-    _uiState.update {
-      it.copy(containerLayout = layoutCoordinates.toLayoutInfo())
-    }
   }
 
   /**
@@ -265,34 +251,11 @@ internal class TargetLayerImpl : LayerImpl(), TargetLayer {
   }
 
   @Composable
-  override fun LayerContent() {
+  override fun BoxScope.LayerContent() {
     val uiState by _uiState.collectAsState()
-    Box(modifier = Modifier.fillMaxSize()) {
-      HandlerOnTouchOutside()
-      OffsetBox(
-        modifier = Modifier
-          .fillMaxSize()
-          .zIndex(zIndexState),
-        uiState = uiState,
-      )
-    }
-  }
-
-  @Composable
-  private fun HandlerOnTouchOutside() {
-    val state = _detachOnTouchOutsideState ?: return
-    Box(
-      modifier = Modifier
-        .fillMaxSize()
-        .pointerInput(state) {
-          detectTapGestures(
-            onPress = {
-              if (state) {
-                requestDetach(LayerDetach.OnTouchOutside)
-              }
-            }
-          )
-        }
+    OffsetBox(
+      modifier = Modifier.fillMaxSize(),
+      uiState = uiState,
     )
   }
 
